@@ -14,10 +14,9 @@
     return numStr;
   }
 
-  function loadPhoneNumber(mediaURL, cbSuccess, cbError) {
-    var url = 'https://qa-dialinstream.int/create';
+  function loadPhoneNumber(apiURL, mediaURL, cbSuccess, cbError) {
     var request = new XMLHttpRequest();
-    request.open('POST', url, true);
+    request.open('POST', apiURL, true);
     request.setRequestHeader('Content-type', 'application/json');
     request.onreadystatechange = function() {
       if (request.readyState === 4) {
@@ -48,21 +47,23 @@
         return false;
       }
 
+      var apiURL = optConfig.api || parentNode.dataset.api || 'https://qa-dialinstream.int/create';
       var source = optConfig.src || parentNode.dataset.src;
 
       var button = document.createElement('button');
       button.className = 'lbw-listen-button';
-      button.innerHTML = optConfig.text || parentNode.dataset.text || 'Listen';
+      button.innerHTML = optConfig.text || parentNode.dataset.text || 'Call to Listen';
       button.addEventListener('click', function(mediaURL, container) {
         // fix the width for the loader
         this.style = 'width: ' + this.clientWidth + 'px';
 
         this.innerHTML = '<div class="lbw-spinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>';
 
-        loadPhoneNumber(mediaURL,
+        loadPhoneNumber(apiURL, mediaURL,
           // success
           function(phoneNumber) {
-            container.innerHTML = '<a class="lbw-phone-number" href="tel:' + phoneNumber + '">' + phoneNumber + '</a>';
+            container.innerHTML = '<div class="lbw-text">Bullhorn! Tap to call:</div>\
+            <a class="lbw-phone-number" href="tel:' + phoneNumber + '">' + phoneNumber + '</a>';
           },
           // fail
           function() {
