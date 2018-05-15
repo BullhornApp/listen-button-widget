@@ -21,7 +21,10 @@ Place the button anywhere you need and script will parse it automatically:
 
 ## Customization
 
-Widget supports two parameters: `data-src` and `data-text`;
+Widget supports parameters:
+* `data-src` - media source URL;
+* `data-text` - button text;
+* `data-api` - your own custom server URL;
 
 ## Programmatic usage
 
