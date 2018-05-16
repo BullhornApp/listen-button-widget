@@ -22,7 +22,7 @@
       if (request.readyState === 4) {
         if (request.status === 200) {
           var data = JSON.parse(request.responseText);
-          cbSuccess(formatPhoneNumber(data.phonenumber));
+          cbSuccess(data.phonenumber);
         } else {
           cbError();
         }
@@ -47,7 +47,7 @@
         return false;
       }
 
-      var apiURL = optConfig.api || parentNode.dataset.api || 'https://qa-dialinstream.int/create';
+      var apiURL = optConfig.api || parentNode.dataset.api || 'https://button.getbullhorn.com/create';
       var source = optConfig.src || parentNode.dataset.src;
 
       var button = document.createElement('button');
@@ -63,7 +63,7 @@
           // success
           function(phoneNumber) {
             container.innerHTML = '<div class="lbw-text">Bullhorn! Tap to call:</div>\
-            <a class="lbw-phone-number" href="tel:' + phoneNumber + '">' + phoneNumber + '</a>';
+            <a class="lbw-phone-number" href="tel:' + phoneNumber + '">' + formatPhoneNumber(phoneNumber) + '</a>';
           },
           // fail
           function() {
