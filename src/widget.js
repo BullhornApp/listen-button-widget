@@ -56,14 +56,16 @@
       button.addEventListener('click', function(mediaURL, container) {
         // fix the width for the loader
         this.style = 'width: ' + this.clientWidth + 'px';
-
         this.innerHTML = '<div class="lbw-spinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>';
 
         loadPhoneNumber(apiURL, mediaURL,
           // success
           function(phoneNumber) {
-            container.innerHTML = '<div class="lbw-text">Bullhorn! Tap to call:</div>\
-            <a class="lbw-phone-number" href="tel:' + phoneNumber + '">' + formatPhoneNumber(phoneNumber) + '</a>';
+            container.innerHTML = '<a class="lbw-phone-number" href="tel:' + phoneNumber + '">' + formatPhoneNumber(phoneNumber) + '</a>';
+            // open dialer if mobile
+            if (/\bi?Phone\b|(?=.*\bAndroid\b)(?=.*\bMobile\b)/i.test(window.navigator.userAgent)) {
+              document.location.href = 'tel:' + phoneNumber;
+            }
           },
           // fail
           function() {

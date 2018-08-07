@@ -1,6 +1,6 @@
 {
   "name": "listen-button",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "A widget making access to your media through the PSTN",
   "main": "widget.js",
   "license": "MIT",
