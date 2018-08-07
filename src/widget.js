@@ -53,12 +53,12 @@
       var button = document.createElement('button');
       button.className = 'lbw-listen-button';
       button.innerHTML = optConfig.text || parentNode.dataset.text || 'Call to Listen';
-      button.addEventListener('click', function(mediaURL, container) {
+      button.addEventListener('click', function(mediaURL, container, api) {
         // fix the width for the loader
         this.style = 'width: ' + this.clientWidth + 'px';
         this.innerHTML = '<div class="lbw-spinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>';
 
-        loadPhoneNumber(apiURL, mediaURL,
+        loadPhoneNumber(api, mediaURL,
           // success
           function(phoneNumber) {
             container.innerHTML = '<a class="lbw-phone-number" href="tel:' + phoneNumber + '">' + formatPhoneNumber(phoneNumber) + '</a>';
@@ -72,7 +72,7 @@
             container.innerHTML = '<div class="lbw-error">Error... Sorry!</div>';
           }
         );
-      }.bind(button, source, parentNode), false);
+      }.bind(button, source, parentNode, apiURL), false);
 
       parentNode.appendChild(button);
     }
